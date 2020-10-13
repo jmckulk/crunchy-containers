@@ -16,7 +16,8 @@
 export PGHOST="/tmp"
 export PGPORT="$PGHA_PG_PORT"
 
-source /opt/cpm/bin/common/common_lib.sh
+CRUNCHY_DIR=${CRUNCHY_DIR:-'/opt/crunchy'}
+source $CRUNCHY_DIR/bin/common/common_lib.sh
 enable_debugging
 
 trap_sigterm() {
@@ -56,7 +57,7 @@ initialization_monitor() {
         # Enable pgbackrest
         if [[ "${PGHA_PGBACKREST}" == "true" ]]
         then
-            source "/opt/cpm/bin/pgbackrest/pgbackrest-post-bootstrap.sh"
+            source "/opt/crunchy/bin/postgres-ha/pgbackrest/pgbackrest-post-bootstrap.sh"
         fi
 
         if [[ "${PGHA_INIT}" == "true" ]]
@@ -90,7 +91,7 @@ initialization_monitor() {
             then
                 # Apply enhancement modules
                 echo_info "Applying enahncement modules"
-                for module in /opt/cpm/bin/modules/*.sh
+                for module in /opt/crunchy/bin/postgres-ha/modules/*.sh
                 do
                     echo_info "Applying module ${module}"
                     source "${module}"
@@ -98,7 +99,7 @@ initialization_monitor() {
 
                 # If there are any tablespaces, create them as a convenience to the user, both
                 # the directories and the PostgreSQL objects
-                source /opt/cpm/bin/common/pgha-tablespaces.sh
+                source /opt/crunchy/bin/postgres-ha/common/pgha-tablespaces.sh
                 tablespaces_create_postgresql_objects "${PGHA_USER}"
 
                 # Run audit.sql file if exists
@@ -140,7 +141,7 @@ primary_initialization_monitor() {
     echo_info "Primary host specified, checking if Primary is ready before initializing replica"
     env_check_err "PGHA_PRIMARY_HOST"
     while [[ $(curl --silent "${PGHA_PRIMARY_HOST}:${PGHA_PATRONI_PORT}/master" --stderr - \
-        | /opt/cpm/bin/yq r - state 2> /dev/null) != "running" ]]
+        | /opt/crunchy/bin/yq r - state 2> /dev/null) != "running" ]]
     do
         echo_info "Primary is not ready, retrying"
         sleep 1
@@ -163,19 +164,19 @@ remove_patroni_pause_key()  {
 }
 
 # Configure users and groups
-source /opt/cpm/bin/common/uid_postgres_no_exec.sh
+source /opt/crunchy/bin/common/uid_postgres_no_exec.sh
 
 # Perform cluster pre-initialization (set defaults, load secrets, peform validation, log config details, etc.)
-source /opt/cpm/bin/bootstrap/pre-bootstrap.sh
+source /opt/crunchy/bin/postgres-ha/bootstrap/pre-bootstrap.sh
 
 # Enable pgbackrest
 if [[ "${PGHA_PGBACKREST}" == "true" ]]
 then
-    source /opt/cpm/bin/pgbackrest/pgbackrest-pre-bootstrap.sh
+    source /opt/crunchy/bin/postgres-ha/pgbackrest/pgbackrest-pre-bootstrap.sh
 fi
 
 # Enable SSHD if needed for a pgBackRest dedicated repository prior to bootstrapping
-source /opt/cpm/bin/bootstrap/sshd.sh
+source /opt/crunchy/bin/postgres-ha/bootstrap/sshd.sh
 
 if [[ -v PGHA_PRIMARY_HOST ]]
 then

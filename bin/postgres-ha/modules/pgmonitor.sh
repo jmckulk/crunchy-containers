@@ -13,11 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+CRUNCHY_DIR=${CRUNCHY_DIR:-'/opt/crunchy'}
 if [[ -v PGMONITOR_PASSWORD ]]
 then
     echo_info "PGMONITOR_PASSWORD detected.  Enabling pgMonitor support."
 
-    source /opt/cpm/bin/common/common_lib.sh
+    source $CRUNCHY_DIR/bin/common/common_lib.sh
     export PGHOST="/tmp"
 
     test_server "postgres" "${PGHOST?}" "${PGHA_PG_PORT}" "postgres"
@@ -25,22 +26,22 @@ then
 
     if (( ${VERSION?} >= 90500 )) && (( ${VERSION?} < 90600 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg95.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg95.sql'
     elif (( ${VERSION?} >= 90600 )) && (( ${VERSION?} < 100000 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg96.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg96.sql'
     elif (( ${VERSION?} >= 100000 )) && (( ${VERSION?} < 110000 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg10.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg10.sql'
     elif (( ${VERSION?} >= 110000 )) && (( ${VERSION?} < 120000 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg11.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg11.sql'
     elif (( ${VERSION?} >= 120000 )) && (( ${VERSION?} < 130000 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg12.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg12.sql'
     elif (( ${VERSION?} >= 130000 ))
     then
-        function_file='/opt/cpm/bin/modules/pgexporter/setup_pg13.sql'
+        function_file='$CRUNCHY_DIR/bin/postgres-ha/modules/pgexporter/setup_pg13.sql'
     else
         echo_err "Unknown or unsupported version of PostgreSQL.  Exiting.."
         exit 1
@@ -48,7 +49,7 @@ then
 
     echo_info "Using setup file '${function_file}' for pgMonitor"
     cp "${function_file}" "/tmp/setup_pg.sql"
-    sed -i "s/\/usr\/bin\/pgbackrest-info.sh/\/opt\/cpm\/bin\/pgbackrest\/pgbackrest_info.sh/g" "/tmp/setup_pg.sql"
+    sed -i "s/\/usr\/bin\/pgbackrest-info.sh/\/opt\/crunchy/\postgres-ha\/bin\/pgbackrest\/pgbackrest_info.sh/g" "/tmp/setup_pg.sql"
 
     psql -U postgres --port="${PG_PRIMARY_PORT}" -d postgres \
         < "/tmp/setup_pg.sql" > /tmp/pgmonitor-setup.stdout 2> /tmp/pgmonitor-setup.stderr
