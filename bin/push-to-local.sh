@@ -2,7 +2,7 @@
 
 set -e -u
 
-REGISTRY=192.168.0.117:5000
+REGISTRY=gcr.io/crunchy-dev-test
 VERSION=${CCP_IMAGE_TAG?}
 IMAGES=(
     crunchy-postgres

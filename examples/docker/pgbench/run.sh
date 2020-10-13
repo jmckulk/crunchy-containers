@@ -19,6 +19,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 $DIR/cleanup.sh
 
 docker run \
+    -e MODE='pgbench' \
     -e PG_DATABASE='userdb' \
     -e PG_HOSTNAME='primary' \
     -e PG_PASSWORD='password' \
@@ -33,4 +34,4 @@ docker run \
     --name=pgbench \
     --hostname=pgbench \
     --network=pgnet \
-    -d $CCP_IMAGE_PREFIX/crunchy-pgbench:$CCP_IMAGE_TAG
+    -d $CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG

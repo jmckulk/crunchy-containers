@@ -29,7 +29,8 @@
                 "containers": [
                     {
                         "name": "backup",
-                        "image": "$CCP_IMAGE_PREFIX/crunchy-backup:$CCP_IMAGE_TAG",
+                        "image": "$CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG",
+                        "imagePullPolicy": "Always",
                         "volumeMounts": [
                             {
                                 "mountPath": "/pgdata",
@@ -38,6 +39,10 @@
                             }
                         ],
                         "env": [
+                            {
+                                "name": "MODE",
+                                "value": "backup"
+                            },
                             {
                                 "name": "BACKUP_HOST",
                                 "value": "primary"

@@ -20,6 +20,7 @@ docker network create --driver bridge pgnet
 
 docker run \
     -v backups:/pgdata \
+    -e MODE=pgdump \
     -e PGDUMP_HOST=primary \
     -e PGDUMP_DB=postgres \
     -e PGDUMP_USER=postgres\
@@ -27,4 +28,4 @@ docker run \
     --name=pgdump \
     --hostname=pgdump \
     --network=pgnet \
-    -d $CCP_IMAGE_PREFIX/crunchy-pgdump:$CCP_IMAGE_TAG
+    -d $CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG

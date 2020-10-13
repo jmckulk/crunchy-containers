@@ -27,7 +27,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "primary",
         "labels": {
@@ -36,6 +36,11 @@
         }
     },
     "spec": {
+	"selector": {
+	    "matchLabels": {
+	        "name": "primary"
+	    }
+	},
         "replicas": 1,
         "template": {
             "metadata": {
@@ -52,7 +57,7 @@
                         "readinessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/readiness.sh"
+                                    "/opt/crunchy/bin/postgres/readiness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 40,
@@ -61,13 +66,17 @@
                         "livenessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/liveness.sh"
+                                    "/opt/crunchy/bin/postgres/liveness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 40,
                             "timeoutSeconds": 1
                         },
                         "env": [
+                            {
+                            "name": "MODE",
+                            "value": "postgres"
+                            },
                             {
                                 "name": "PG_PRIMARY_PORT",
                                 "value": "5432"
@@ -123,7 +132,7 @@
                             }
                         ],
                         "resources": {},
-                        "imagePullPolicy": "IfNotPresent"
+                        "imagePullPolicy": "Always"
                     }
                 ],
                 "volumes": [
