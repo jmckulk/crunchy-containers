@@ -80,9 +80,9 @@ backrestrestore: backrest-restore-pgimg-$(IMGBUILDER)
 backup:	backup-pgimg-$(IMGBUILDER)
 crunchyadm: admin-pgimg-$(IMGBUILDER)
 pgadmin4: pgadmin4-pgimg-$(IMGBUILDER)
-pgbadger: pgbadger-pgimg-$(IMGBUILDER)
+pgbadger: pgbadger-img-$(IMGBUILDER)
 pgbench: pgbench-pgimg-$(IMGBUILDER)
-pgbouncer: pgbouncer-pgimg-$(IMGBUILDER)
+pgbouncer: pgbouncer-img-$(IMGBUILDER)
 pgdump: pgdump-pgimg-$(IMGBUILDER)
 pgpool: pgpool-pgimg-$(IMGBUILDER)
 pgrestore: pgrestore-pgimg-$(IMGBUILDER)
@@ -288,6 +288,7 @@ backrest-restore-pgimg-docker: backrest-restore-pgimg-build
 		--build-arg PREFIX=$(CCP_IMAGE_PREFIX) \
 		--build-arg DFSET=$(DFSET) \
 		--build-arg PACKAGER=$(PACKAGER) \
+		--build-arg PG_LBL=${subst .,,$(CCP_PGVERSION)} \
 		$(CCPROOT)
 
 %-pgimg-buildah: %-pgimg-build ;
@@ -310,6 +311,7 @@ endif
 		--build-arg PREFIX=$(CCP_IMAGE_PREFIX) \
 		--build-arg DFSET=$(DFSET) \
 		--build-arg PACKAGER=$(PACKAGER) \
+		--build-arg PG_LBL=${subst .,,$(CCP_PGVERSION)} \
 		$(CCPROOT)
 
 %-img-buildah: %-img-build ;

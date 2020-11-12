@@ -2,7 +2,7 @@ ARG BASEOS
 ARG BASEVER
 ARG PG_FULL
 ARG PREFIX
-FROM ${PREFIX}/crunchy-pg-base:${BASEOS}-${PG_FULL}-${BASEVER}
+FROM ${PREFIX}/crunchy-base:${BASEOS}-${PG_FULL}-${BASEVER}
 
 # For RHEL8 all arguments used in main code has to be specified after FROM
 ARG DFSET
@@ -25,14 +25,14 @@ RUN ${PACKAGER} -y install \
 # Preserving PGVERSION out of paranoia
 ENV PGVERSION="${PG_MAJOR}"
 
-RUN mkdir -p /opt/cpm/bin /opt/cpm/conf /pgconf
+RUN mkdir -p /opt/crunchy/bin /opt/crunchy/conf /pgconf
 
-ADD bin/pgbouncer /opt/cpm/bin
-ADD bin/common /opt/cpm/bin
-ADD conf/pgbouncer /opt/cpm/conf
+ADD bin/pgbouncer /opt/crunchy/bin
+ADD bin/common /opt/crunchy/bin
+ADD conf/pgbouncer /opt/crunchy/conf
 
-RUN chown -R 2:0 /opt/cpm /pgconf && \
-	chmod -R g=u /opt/cpm /pgconf
+RUN chown -R 2:0 /opt/crunchy /pgconf && \
+	chmod -R g=u /opt/crunchy /pgconf
 
 EXPOSE 6432
 
@@ -42,8 +42,8 @@ RUN chmod g=u /etc/passwd
 # volume permissions are applied when building the image
 VOLUME ["/pgconf"]
 
-ENTRYPOINT ["opt/cpm/bin/uid_daemon.sh"]
+ENTRYPOINT ["opt/crunchy/bin/uid_daemon.sh"]
 
 USER 2
 
-CMD ["/opt/cpm/bin/start.sh"]
+CMD ["/opt/crunchy/bin/start.sh"]
