@@ -1,3 +1,0 @@
-# Crunchy Container Env
-PGBOUNCER_PASSWORD=password
-PG_SERVICE=pg-replica
