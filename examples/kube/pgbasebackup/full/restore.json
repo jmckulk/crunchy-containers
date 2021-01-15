@@ -35,7 +35,7 @@
                 "containers": [
                     {
                         "name": "backup",
-                        "image": "$CCP_IMAGE_PREFIX/crunchy-pgbasebackup-restore:$CCP_IMAGE_TAG",
+                        "image": "$CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG",
                         "volumeMounts": [
                             {
                                 "mountPath": "/pgdata",
@@ -49,6 +49,10 @@
                             }
                         ],
                         "env": [
+                            {
+                                "name": "MODE",
+                                "value": "pgbasebackup-restore"
+                            },
                             {
                                 "name": "BACKUP_PATH",
                                 "value": "primary-backups/2020-02-08-18-28-45"

@@ -20,6 +20,7 @@ docker network create --driver bridge pgnet
 
 docker run \
     -v backups:/pgdata \
+    -e MODE=pgrestore \
     -e PGRESTORE_HOST=primary \
     -e PGRESTORE_DB=postgres \
     -e PGRESTORE_USER=postgres\
@@ -27,4 +28,4 @@ docker run \
     --name=pgrestore \
     --hostname=pgrestore \
     --network=pgnet \
-    -d $CCP_IMAGE_PREFIX/crunchy-pgrestore:$CCP_IMAGE_TAG
+    -d $CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG

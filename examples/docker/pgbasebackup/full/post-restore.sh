@@ -10,6 +10,7 @@ sudo docker rm "${CONTAINER_NAME}"
 docker run \
     -p 12001:5432 \
     --volume full-restore-pgdata:/pgdata \
+    -e MODE=postgres \
     --env PG_MODE=primary \
     --env PG_USER=testuser \
     --env PG_PASSWORD=password \

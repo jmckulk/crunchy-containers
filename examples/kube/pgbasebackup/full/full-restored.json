@@ -75,6 +75,10 @@
                         ],
                         "env": [
                             {
+                                "name": "MODE",
+                                "value": "pgdump"
+                            },
+                            {
                                 "name": "PG_PRIMARY_USER",
                                 "value": "primaryuser"
                             },

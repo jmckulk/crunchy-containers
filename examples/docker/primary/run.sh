@@ -19,12 +19,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 $DIR/cleanup.sh
 
 docker network create --driver bridge pgnet
-docker volume create --driver local --name=primary-pgdata
+docker volume create --driver local primary-pgdata
 
 docker run \
     -p 5432:5432 \
     -v primary-pgdata:/pgdata \
     -e PG_MODE=primary \
+    -e MODE=postgres \
     -e PG_USER=testuser \
     -e PG_PASSWORD=password \
     -e PG_DATABASE=userdb \
@@ -33,6 +34,7 @@ docker run \
     -e PG_PRIMARY_PASSWORD=password \
     -e PG_ROOT_PASSWORD=password \
     -e PGHOST=/tmp \
+    -e PGMONITOR_PASSWORD=pass \
     --name=primary \
     --hostname=primary \
     --network=pgnet \

@@ -24,12 +24,13 @@ PRIMARY_CONTAINER_NAME=primary
 echo "Starting the ${PRIMARY_CONTAINER_NAME} container..."
 
 PRIMARY_VOLUME_NAME=${PRIMARY_CONTAINER_NAME}-pgdata
-docker volume create --driver local --name=${PRIMARY_VOLUME_NAME}
+docker volume create --driver local ${PRIMARY_VOLUME_NAME}
 
 docker run \
 	-p 12007:5432 \
 	--privileged=true \
 	-v ${PRIMARY_VOLUME_NAME}:/pgdata \
+	-e MODE=postgres \
 	-e TEMP_BUFFERS=9MB \
 	-e PGHOST=/tmp \
 	-e MAX_CONNECTIONS=101 \
@@ -55,12 +56,13 @@ echo "Starting the ${REPLICA_CONTAINER_NAME} container..."
 sleep 20
 
 REPLICA_VOLUME_NAME=${REPLICA_CONTAINER_NAME}-pgdata
-docker volume create --driver local --name=${REPLICA_VOLUME_NAME}
+docker volume create --driver local ${REPLICA_VOLUME_NAME}
 
 docker run \
 	-p 12008:5432 \
 	--privileged=true \
 	-v ${REPLICA_VOLUME_NAME}:/pgdata \
+	-e MODE=postgres \
 	-e TEMP_BUFFERS=9MB \
 	-e PG_PRIMARY_HOST=$PRIMARY_CONTAINER_NAME \
 	-e PGHOST=/tmp \

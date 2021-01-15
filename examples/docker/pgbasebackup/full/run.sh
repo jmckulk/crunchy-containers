@@ -28,8 +28,9 @@ echo "Starting the pg_basebackup full restore example..."
 docker run \
 	--volume full-restore-pgdata:/pgdata \
 	--volume backup-volume:/backup:ro \
-	--env BACKUP_PATH=primary-backups/2020-02-08-21-07-31 \
+	-e MODE=pgbasebackup-restore \
+	--env BACKUP_PATH=primary-backups/2020-10-15-18-17-07 \
 	--env PGDATA_PATH=pgbasebackup-full-restored \
 	--name="${CONTAINER_NAME}" \
 	--hostname="${CONTAINER_NAME}" \
-	--detach "${CCP_IMAGE_PREFIX}"/crunchy-pgbasebackup-restore:"${CCP_IMAGE_TAG}"
+	--detach "${CCP_IMAGE_PREFIX}"/crunchy-postgres:"${CCP_IMAGE_TAG}"

@@ -50,6 +50,7 @@
                     }
                 ],
                 "env": [
+		    { "name": "MODE", "value": "postgres" },
                     {
                         "name": "PGHOST",
                         "value": "/tmp"

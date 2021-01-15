@@ -98,7 +98,7 @@
                         "readinessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/health/pgha-readiness.sh"
+                                    "/opt/crunchy/bin/postgres-ha/pgha-readiness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 30
@@ -106,7 +106,7 @@
                         "livenessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/health/pgha-liveness.sh"
+                                    "/opt/crunchy/bin/postgres-ha/pgha-liveness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 30,
@@ -333,7 +333,7 @@
                         "readinessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/health/pgha-readiness.sh"
+                                    "/opt/crunchy/bin/postgres-ha/pgha-readiness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 30
@@ -341,7 +341,7 @@
                         "livenessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/health/pgha-liveness.sh"
+                                    "/opt/crunchy/bin/postgres-ha/pgha-liveness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 30,
