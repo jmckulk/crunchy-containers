@@ -35,7 +35,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "primary-metrics",
         "labels": {
@@ -44,6 +44,11 @@
         }
     },
     "spec": {
+        "selector": {
+            "matchLabels": {
+                "name": "primary-metrics"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {

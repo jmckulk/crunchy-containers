@@ -27,7 +27,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "backrest-pitr-restored",
         "labels": {
@@ -36,6 +36,11 @@
         }
     },
     "spec": {
+	"selector": {
+	  "matchLabels": {
+	    "name": "backrest-pitr-restored"
+	  }
+	},
         "replicas": 1,
         "template": {
             "metadata": {

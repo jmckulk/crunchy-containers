@@ -54,7 +54,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "primary-deployment",
         "labels": {
@@ -63,6 +63,11 @@
         }
     },
     "spec": {
+        "selector": {
+            "matchLabels": {
+                "name": "primary-deployment"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {
@@ -191,7 +196,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "replica-deployment",
         "labels": {
@@ -200,6 +205,11 @@
         }
     },
     "spec": {
+        "selector": {
+            "matchLabels": {
+                "name": "replica-deployment"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {

@@ -27,7 +27,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "pr-primary",
         "labels": {
@@ -37,6 +37,11 @@
     },
     "spec": {
         "replicas": 1,
+        "selector": {
+            "matchLabels": {
+                "name": "pr-primary"
+            }
+        },
         "template": {
             "metadata": {
                 "labels": {

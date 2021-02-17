@@ -68,7 +68,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "postgres-gis-ha-01",
         "labels": {
@@ -78,6 +78,11 @@
         }
     },
     "spec": {
+        "selector": {
+            "matchLabels": {
+                "name": "postgres-gis-ha-01"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {
@@ -337,7 +342,7 @@
 
 {
     "kind": "Deployment",
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "apps/v1",
     "metadata": {
         "name": "postgres-gis-ha-02",
         "labels": {
@@ -347,6 +352,11 @@
         }
     },
     "spec": {
+        "selector": {
+            "matchLabels": {
+                "name": "postgres-gis-ha-02"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {
