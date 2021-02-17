@@ -25,11 +25,12 @@ echo "Starting the ${CONTAINER_NAME} example..."
 VOLUME_NAME=backup-volume
 BACKUP_HOST=primary
 
-docker volume create --driver local --name=$VOLUME_NAME
+docker volume create --driver local $VOLUME_NAME
 
 docker run \
 	--privileged=true \
 	-v $VOLUME_NAME:/pgdata \
+	-e MODE=backup \
 	-e BACKUP_HOST=$BACKUP_HOST \
 	-e BACKUP_USER=primaryuser \
 	-e BACKUP_PASS=password \
@@ -38,4 +39,4 @@ docker run \
 	--name=$CONTAINER_NAME \
 	--hostname=$CONTAINER_NAME \
 	--network=pgnet \
-	-d $CCP_IMAGE_PREFIX/crunchy-backup:$CCP_IMAGE_TAG
+	-d $CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG
