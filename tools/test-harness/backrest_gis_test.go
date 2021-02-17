@@ -23,6 +23,7 @@ import (
 )
 
 func TestBackrestAsyncArchiveGIS(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'backrest/async-archiving' example...")
 
@@ -106,6 +107,7 @@ func TestBackrestAsyncArchiveGIS(t *testing.T) {
 }
 
 func TestBackrestDeltaRestoreGIS(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'backrest/delta' example...")
 
@@ -272,6 +274,7 @@ func TestBackrestDeltaRestoreGIS(t *testing.T) {
 }
 
 func TestBackrestFullRestoreGIS(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'backrest/full' example...")
 
@@ -412,6 +415,7 @@ func TestBackrestFullRestoreGIS(t *testing.T) {
 }
 
 func TestBackrestPITRRestoreGIS(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'backrest/pitr' example...")
 

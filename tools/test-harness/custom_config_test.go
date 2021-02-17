@@ -20,6 +20,7 @@ import (
 )
 
 func TestCustomConfig(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'custom-config' example...")
 	harness := setup(t, timeout, true)

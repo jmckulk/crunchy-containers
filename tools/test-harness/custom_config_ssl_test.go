@@ -22,6 +22,7 @@ import (
 )
 
 func TestCustomConfigSSL(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'custom-config-ssl' example...")
 	harness := setup(t, timeout, true)

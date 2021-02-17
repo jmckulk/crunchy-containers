@@ -23,6 +23,7 @@ import (
 // Test the Postgres HA container by running the relevant example and validated the
 // various resources are created and running with the correct statuses
 func TestPostgresHA(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'postgres-ha' example...")
 	harness := setup(t, timeout, true)

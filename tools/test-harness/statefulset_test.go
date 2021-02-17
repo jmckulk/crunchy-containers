@@ -21,6 +21,7 @@ import (
 )
 
 func TestStatefulSet(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 	t.Log("Testing the 'statefulset' example...")
 	// This example deploys replicas after primary is ready,
