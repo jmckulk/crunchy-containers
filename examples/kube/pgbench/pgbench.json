@@ -22,9 +22,13 @@
                 "containers": [
                     {
                         "name": "pgbench",
-                        "image": "$CCP_IMAGE_PREFIX/crunchy-pgbench:$CCP_IMAGE_TAG",
+                        "image": "$CCP_IMAGE_PREFIX/crunchy-postgres:$CCP_IMAGE_TAG",
                         "volumeMounts": [],
                         "env": [
+                            {
+                                "name": "MODE",
+                                "value": "pgbench"
+                            },
                             {
                                 "name": "PG_DATABASE",
                                 "value": "userdb"

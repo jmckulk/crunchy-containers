@@ -24,6 +24,10 @@
                         "image": "$CCP_IMAGE_PREFIX/crunchy-backrest-restore:$CCP_IMAGE_TAG",
                         "env": [
                             {
+                                "name": "MODE",
+                                "value": "pgbackrest-restore"
+                            },
+                            {
                                 "name": "PGBACKREST_STANZA",
                                 "value": "db"
                             },

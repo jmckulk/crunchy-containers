@@ -36,11 +36,11 @@
         }
     },
     "spec": {
-	"selector": {
-	  "matchLabels": {
-	    "name": "backrest-async-archive"
-	  }
-	},
+        "selector": {
+            "matchLabels": {
+                "name": "backrest-async-archive"
+            }
+        },
         "replicas": 1,
         "template": {
             "metadata": {
@@ -57,7 +57,7 @@
                         "readinessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/readiness.sh"
+                                    "/opt/crunchy/bin/postgres/readiness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 40,
@@ -66,13 +66,17 @@
                         "livenessProbe": {
                             "exec": {
                                 "command": [
-                                    "/opt/cpm/bin/liveness.sh"
+                                    "/opt/crunchy/bin/postgres/liveness.sh"
                                 ]
                             },
                             "initialDelaySeconds": 40,
                             "timeoutSeconds": 1
                         },
                         "env": [
+                            {
+                                "name": "MODE",
+                                "value": "postgres"
+                            },
                             {
                                 "name": "PG_PRIMARY_USER",
                                 "value": "primaryuser"
